@@ -1,8 +1,13 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
+import Tracklist from "../Tracklist";
 
-const SearchResults = () => {
-	return <div className="bg-slate-50 max-w-md w-full">SearchResults</div>;
+const SearchResults = ({ trackList, addTrack, isSearchResults }) => {
+	return (
+		<div className="flex flex-col">
+			<p>Results Output</p>
+			<Tracklist trackList={trackList} handleTrack={addTrack} isSearchResults={isSearchResults} />
+		</div>
+	);
 };
 
 export default SearchResults;
