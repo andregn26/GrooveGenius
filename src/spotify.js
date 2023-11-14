@@ -3,6 +3,7 @@ const CLIENT_ID = `&client_id=${import.meta.env.VITE_CLIENT_ID}`;
 const RESPONSE_TYPE = "?response_type=token";
 const REDIRECT_URI = `&redirect_uri=http://localhost:5173/`;
 const SCOPE = "&scope=playlist-modify-private user-read-private";
+var stateKey = "spotify_auth_state";
 let TOKEN = null;
 
 const getToken = () => {
@@ -50,6 +51,14 @@ const getSongs = async (query) => {
 				album: album.name,
 				image: album.images[2].url,
 		  }));
+};
+
+const savePlaylist = async (listObject) => {
+	const token = getToken();
+	const urlEncodedListName = encodeURIComponent(listObject.name);
+	const headers = { Authorization: "Bearer " + token };
+
+	const userResponse = await fetch("https://api.spotify.com/v1/me", { headers });
 };
 
 export { getSongs };

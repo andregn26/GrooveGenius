@@ -12,7 +12,6 @@ const Playlist = ({ trackList, removeTrack, isSearchResults }) => {
 			tracks: trackList.map((track) => track.uri),
 		};
 		setPlaylistName("");
-		console.log("savedPlaylist -->", savedPlaylist);
 		return savedPlaylist;
 	};
 	return (
