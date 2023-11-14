@@ -12,6 +12,7 @@ const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
 
 function App() {
 	const [accessToken, setAccessToken] = useState("");
+	const [searchInput, setSearchInput] = useState("");
 	const [spotifySongs, setSpotifySongs] = useState([]);
 	const [chosenSongs, setChosenSongs] = useState([]);
 	const [myPlaylistTitle, setMyPlaylistTitle] = useState("Teste titulo playlist");
@@ -24,7 +25,10 @@ function App() {
 			body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`,
 		})
 			.then((response) => response.json())
-			.then((data) => setAccessToken(data.access_token));
+			.then((data) => {
+				// console.log(data);
+				setAccessToken(data.access_token);
+			});
 	}, []);
 
 	// Get Artist
@@ -38,11 +42,29 @@ function App() {
 			.then((data) => console.log(data));
 	};
 
-	const getSearch = () => {};
+	const getSongs = async () => {
+		console.log(`Ola ${searchInput}`);
+		fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchInput)}&type=track`, {
+			method: "GET",
+			headers: { Authorization: `Bearer ${accessToken}` },
+		})
+			.then((response) => response.json())
+			.then((data) =>
+				setSpotifySongs(
+					data.tracks.items.map(({ name, id, album, artists, uri }) => ({
+						name,
+						id,
+						uri,
+						artist: artists[0].name,
+						album: album.name,
+						image: album.images[2].url,
+					}))
+				)
+			);
+	};
 
-	const handleSearch = async (query) => {
-		const searchResult = await getSongs(query);
-		setSpotifySongs(searchResult);
+	const handleSearch = (e) => {
+		setSearchInput(e.target.value);
 	};
 
 	const addTrack = (track) => {
@@ -59,7 +81,11 @@ function App() {
 	return (
 		<div className="scrollbar bg-slate-50 text-slate-900 min-h-screen">
 			<header className="flex  justify-center">
-				<SearchBar handleSearch={handleSearch} />
+				{/* <SearchBar handleSearch={handleSearch} /> */}
+				<form action="#" onSubmit={getSongs}>
+					<input type="text" onChange={handleSearch} />
+					<input type="submit" />
+				</form>
 			</header>
 			<main className="flex flex-col md:flex-row gap-16 border max-w-xxl justify-center">
 				<SearchResults trackList={spotifySongs} addTrack={addTrack} isSearchResults={true} />
