@@ -61,6 +61,10 @@ function App() {
 			);
 	};
 
+	const postNewPlaylist = () => {
+		console.log("New playlist");
+	};
+
 	const handleSearch = (e) => {
 		setSearchInput(e.target.value);
 	};
