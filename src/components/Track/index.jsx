@@ -4,7 +4,7 @@ import React from "react";
 const Track = ({ track, handleTrack, isSearchResults }) => {
 	console.log("data -->", track);
 	const handleRemoveClick = () => {
-		handleTrack(track.id);
+		handleTrack(track);
 	};
 
 	const handleAddClick = () => {

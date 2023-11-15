@@ -1,36 +1,31 @@
 const BASE_URL = "https://accounts.spotify.com/authorize";
-const CLIENT_ID = `&client_id=${import.meta.env.VITE_CLIENT_ID}`;
-const RESPONSE_TYPE = "?response_type=token";
-const REDIRECT_URI = `&redirect_uri=http://localhost:5173/`;
-const SCOPE = "&scope=playlist-modify-private user-read-private";
-var stateKey = "spotify_auth_state";
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+const REDIRECT_URI = `http://localhost:5173/`;
 let TOKEN = null;
 
-const getToken = () => {
+// Function to request access token from Spotify API
+const getToken = async () => {
+	// Check if access token exists
 	if (TOKEN) {
 		return TOKEN;
-	} else if (window.location.hash.length > 1) {
-		const hashParameters = {};
-		// window.location.hash.split('&').forEach(i => hashParameters[i] = i);
-		window.location.hash
-			.slice(1) // to remove # sign
-			.split("&") // to split to paramater/value groups))
-			.forEach((item) => {
-				const parameter = item.split("=");
-				hashParameters[parameter[0]] = parameter[1];
-			});
-
-		TOKEN = hashParameters.access_token;
-		window.history.pushState("Access Token", "", "/");
+	}
+	// Get access token from URL
+	const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
+	const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
+	if (accessTokenMatch && expiresInMatch) {
+		TOKEN = accessTokenMatch[1];
+		const expiresIn = Number(expiresInMatch[1]);
+		window.setTimeout(() => (TOKEN = ""), expiresIn * 1000);
+		window.history.pushState("Access Token", null, "/");
 		return TOKEN;
-	} else if (!TOKEN) {
-		const URL = BASE_URL + RESPONSE_TYPE + CLIENT_ID + SCOPE + REDIRECT_URI;
-		window.location = URL;
+	} else {
+		const accessUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=playlist-modify-public&redirect_uri=${REDIRECT_URI}`;
+		window.location = accessUrl;
 	}
 };
 
 const getSongs = async (query) => {
-	const token = getToken();
+	const token = await getToken();
 	if (!token) return [];
 
 	const urlEncodedQuery = encodeURIComponent(query);
@@ -53,12 +48,4 @@ const getSongs = async (query) => {
 		  }));
 };
 
-const savePlaylist = async (listObject) => {
-	const token = getToken();
-	const urlEncodedListName = encodeURIComponent(listObject.name);
-	const headers = { Authorization: "Bearer " + token };
-
-	const userResponse = await fetch("https://api.spotify.com/v1/me", { headers });
-};
-
-export { getSongs };
+export { getToken, getSongs };

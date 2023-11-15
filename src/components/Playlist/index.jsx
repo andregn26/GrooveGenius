@@ -2,17 +2,16 @@
 import React, { useState } from "react";
 import Tracklist from "../Tracklist";
 
-const Playlist = ({ trackList, removeTrack, isSearchResults }) => {
+const Playlist = ({ trackList, removeTrack, isSearchResults, handleCreatePlaylist }) => {
 	const [playlistName, setPlaylistName] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const savedPlaylist = {
+		handleCreatePlaylist({
 			name: playlistName,
 			tracks: trackList.map((track) => track.uri),
-		};
+		});
 		setPlaylistName("");
-		return savedPlaylist;
 	};
 	return (
 		<div>
