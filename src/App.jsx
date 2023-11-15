@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import SearchResults from "./components/SearchResults";
 import Playlist from "./components/Playlist";
 import SearchBar from "./components/SearchBar";
-import Tracklist from "./components/Tracklist";
-import { getSongs } from "./spotify";
 import "./App.css";
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
@@ -81,11 +79,7 @@ function App() {
 	return (
 		<div className="scrollbar bg-slate-50 text-slate-900 min-h-screen">
 			<header className="flex  justify-center">
-				{/* <SearchBar handleSearch={handleSearch} /> */}
-				<form action="#" onSubmit={getSongs}>
-					<input type="text" onChange={handleSearch} />
-					<input type="submit" />
-				</form>
+				<SearchBar getSongs={getSongs} handleSearch={handleSearch} />
 			</header>
 			<main className="flex flex-col md:flex-row gap-16 border max-w-xxl justify-center">
 				<SearchResults trackList={spotifySongs} addTrack={addTrack} isSearchResults={true} />

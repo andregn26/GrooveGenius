@@ -1,24 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 
-const SearchBar = ({ handleSearch }) => {
-	const [searchInput, setSearchInput] = useState("");
-
-	const handleChange = (e) => {
-		setSearchInput(e.target.value);
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		if (searchInput) {
-			handleSearch(searchInput);
-			setSearchInput("");
-		}
-	};
-
+const SearchBar = ({ handleSearch, getSongs }) => {
 	return (
 		<div className="max-w-lg p-4">
-			<form onSubmit={handleSubmit} className="flex items-center">
+			<form onSubmit={getSongs} className="flex items-center">
 				<label htmlFor="simple-search" className="sr-only">
 					Search
 				</label>
@@ -27,8 +13,7 @@ const SearchBar = ({ handleSearch }) => {
 					<input
 						placeholder="Search Music"
 						required
-						value={searchInput}
-						onChange={handleChange}
+						onChange={handleSearch}
 						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-300 focus:border-teal-300 block w-full ps-10 p-2.5 "
 					/>
 				</div>
