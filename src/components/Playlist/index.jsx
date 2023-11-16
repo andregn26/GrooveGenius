@@ -2,29 +2,21 @@
 import React, { useState } from "react";
 import Tracklist from "../Tracklist";
 
-const Playlist = ({ trackList, removeTrack, isSearchResults }) => {
-	const [playlistName, setPlaylistName] = useState("");
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const savedPlaylist = {
-			name: playlistName,
-			tracks: trackList.map((track) => track.uri),
-		};
-		setPlaylistName("");
-		return savedPlaylist;
+const Playlist = ({ trackList, removeTrack, isSearchResults, saveToSpotify, setPlaylistName, playlistName }) => {
+	const handleClick = () => {
+		saveToSpotify();
 	};
+
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
-				<input
-					value={playlistName}
-					onChange={(e) => setPlaylistName(e.target.value)}
-					placeholder="Título da playlist"
-					type="text"
-				/>
-			</form>
+			<input
+				value={playlistName}
+				onChange={(e) => setPlaylistName(e.target.value)}
+				placeholder="Título da playlist"
+				type="text"
+			/>
 			<Tracklist trackList={trackList} handleTrack={removeTrack} isSearchResults={isSearchResults} />
+			<button onClick={handleClick}>save playlist</button>
 		</div>
 	);
 };
