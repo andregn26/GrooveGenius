@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import SearchResults from "./components/SearchResults";
 import Playlist from "./components/Playlist";
 import SearchBar from "./components/SearchBar";
-import { getToken, getUserProfile, getSongs } from "./spotify";
+import { getToken, getUserProfile, getSongs, postCreatePlaylist } from "./spotify";
 import "./App.css";
-import { stringify } from "postcss";
 
 function App() {
 	const [spotifySongs, setSpotifySongs] = useState([]);
+	const [playlistName, setPlaylistName] = useState("");
 	const [chosenSongs, setChosenSongs] = useState([]);
-	const [myPlaylistTitle, setMyPlaylistTitle] = useState("Teste titulo playlist");
 	const [user, setUser] = useState({});
 
 	useEffect(() => {
@@ -24,6 +23,11 @@ function App() {
 		};
 		loadUser();
 	}, []);
+
+	const saveToSpotify = async () => {
+		const uriList = chosenSongs.map((song) => song.uri);
+		postCreatePlaylist(playlistName, uriList);
+	};
 
 	const loadSongs = async (searchTerm) => {
 		const newTracks = await getSongs(searchTerm);
@@ -50,9 +54,15 @@ function App() {
 			</header>
 			<main className="flex flex-col md:flex-row gap-16 border max-w-xxl justify-center">
 				<SearchResults trackList={spotifySongs} addTrack={addTrack} isSearchResults={true} />
-				<Playlist trackList={chosenSongs} removeTrack={removeTrack} isSearchResults={false} />
+				<Playlist
+					trackList={chosenSongs}
+					setPlaylistName={setPlaylistName}
+					removeTrack={removeTrack}
+					isSearchResults={false}
+					saveToSpotify={saveToSpotify}
+					playlistName={playlistName}
+				/>
 			</main>
-			{/* <button onClick={loadUser}>user</button> */}
 		</div>
 	);
 }

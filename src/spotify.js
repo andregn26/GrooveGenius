@@ -2,9 +2,10 @@
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const REDIRECT_URI = `http://localhost:5173/`;
-const SCOPE = "playlist-modify-public user-read-private user-read-email";
+const SCOPE = "playlist-modify-public playlist-modify-private user-read-private user-read-email";
 let TOKEN = null;
-let USER_ID = {};
+let USER_ID = "";
+let PLAYLIST_ID = "";
 
 // Function to request access token from Spotify API
 const getToken = async () => {
@@ -38,24 +39,63 @@ const getUserProfile = async () => {
 	return data;
 };
 
-// const getUserId = async () => {
-// 	const endpoint = `${BASE_URL}/me`;
-// 	if (!TOKEN) {
-// 		TOKEN = await getToken();
-// 	}
-// 	const requestParams = { headers: { Authorization: `Bearer ${TOKEN}` } };
-// 	try {
-// 		const response = await fetch(endpoint, requestParams);
-// 		if (response.ok) {
-// 			const jsonResponse = await response.json();
-// 			USER_ID = jsonResponse.id;
-// 			console.log(USER_ID);
-// 			return USER_ID;
-// 		}
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
+const getUserID = async () => {
+	if (!TOKEN) {
+		TOKEN = await getToken();
+	}
+	const response = await fetch(`${BASE_URL}/me`, { method: "GET", headers: { Authorization: `Bearer ${TOKEN}` } });
+	const jsonResponse = await response.json();
+	USER_ID = jsonResponse.id;
+	return USER_ID;
+};
+
+const postCreatePlaylist = async (playlistName, list) => {
+	USER_ID = await getUserID();
+	const tracksURIs = list.map((trackURI) => {
+		return `${trackURI}`;
+	});
+	if (!TOKEN) {
+		TOKEN = await getToken();
+	}
+	try {
+		const response = await fetch(`${BASE_URL}/users/${USER_ID}/playlists`, {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${TOKEN}`,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ name: playlistName }),
+		});
+		if (response.ok) {
+			console.log("Playlist has been created");
+			const jsonResponse = await response.json();
+			PLAYLIST_ID = jsonResponse.id;
+			await postItemsToPlaylist(tracksURIs);
+		}
+	} catch (error) {
+		console.log("Error creating playlist:", error);
+
+		if (error.response) {
+			console.log("Response status:", error.response.status);
+			console.log("Response data:", error.response.data);
+		}
+	}
+};
+
+const postItemsToPlaylist = async (tracks) => {
+	try {
+		const response = await fetch(`${BASE_URL}/playlists/${PLAYLIST_ID}/tracks`, {
+			method: "POST",
+			headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" },
+			body: JSON.stringify({ uris: tracks }),
+		});
+		if (response.ok) {
+			console.log("Songs added");
+		}
+	} catch (error) {
+		console.log("Songs not added" + error);
+	}
+};
 
 const getSongs = async (query) => {
 	const token = await getToken();
@@ -77,4 +117,4 @@ const getSongs = async (query) => {
 		  }));
 };
 
-export { getToken, getUserProfile, getSongs };
+export { getToken, getUserProfile, getSongs, postCreatePlaylist };
