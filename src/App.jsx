@@ -3,16 +3,26 @@ import { useEffect, useState } from "react";
 import SearchResults from "./components/SearchResults";
 import Playlist from "./components/Playlist";
 import SearchBar from "./components/SearchBar";
-import { getToken, getSongs } from "./spotify";
+import { getToken, getUserProfile, getSongs } from "./spotify";
 import "./App.css";
+import { stringify } from "postcss";
 
 function App() {
 	const [spotifySongs, setSpotifySongs] = useState([]);
 	const [chosenSongs, setChosenSongs] = useState([]);
 	const [myPlaylistTitle, setMyPlaylistTitle] = useState("Teste titulo playlist");
+	const [user, setUser] = useState({});
 
 	useEffect(() => {
 		getToken();
+	}, []);
+
+	useEffect(() => {
+		const loadUser = async () => {
+			const myUser = await getUserProfile();
+			setUser(myUser);
+		};
+		loadUser();
 	}, []);
 
 	const loadSongs = async (searchTerm) => {
@@ -42,6 +52,7 @@ function App() {
 				<SearchResults trackList={spotifySongs} addTrack={addTrack} isSearchResults={true} />
 				<Playlist trackList={chosenSongs} removeTrack={removeTrack} isSearchResults={false} />
 			</main>
+			{/* <button onClick={loadUser}>user</button> */}
 		</div>
 	);
 }
