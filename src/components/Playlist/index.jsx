@@ -15,6 +15,7 @@ const Playlist = ({ trackList, removeTrack, isSearchResults, saveToSpotify, setP
 				placeholder="Título da playlist"
 				type="text"
 			/>
+
 			<Tracklist trackList={trackList} handleTrack={removeTrack} isSearchResults={isSearchResults} />
 			<button onClick={handleClick}>save playlist</button>
 		</div>

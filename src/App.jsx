@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
+import Header from "./components/Header";
 import SearchResults from "./components/SearchResults";
 import Playlist from "./components/Playlist";
 import SearchBar from "./components/SearchBar";
@@ -10,7 +11,7 @@ function App() {
 	const [spotifySongs, setSpotifySongs] = useState([]);
 	const [playlistName, setPlaylistName] = useState("");
 	const [chosenSongs, setChosenSongs] = useState([]);
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState(null);
 
 	useEffect(() => {
 		getToken();
@@ -47,22 +48,27 @@ function App() {
 		setSpotifySongs((spotifyList) => [trackIdToRemove, ...spotifyList]);
 	};
 
+	const isSpotifyArrayEmpty = spotifySongs.length === 0;
+
 	return (
-		<div className="scrollbar bg-slate-50 text-slate-900 min-h-screen">
-			<header className="flex  justify-center">
-				<SearchBar loadSongs={loadSongs} />
-			</header>
-			<main className="flex flex-col md:flex-row gap-16 border max-w-xxl justify-center">
-				<SearchResults trackList={spotifySongs} addTrack={addTrack} isSearchResults={true} />
-				<Playlist
-					trackList={chosenSongs}
-					setPlaylistName={setPlaylistName}
-					removeTrack={removeTrack}
-					isSearchResults={false}
-					saveToSpotify={saveToSpotify}
-					playlistName={playlistName}
-				/>
-			</main>
+		<div className="scrollbar min-h-screen">
+			<Header loadSongs={loadSongs} isSpotifyArrayEmpty={isSpotifyArrayEmpty} userProfile={user} />
+
+			{isSpotifyArrayEmpty ? (
+				<></>
+			) : (
+				<main className="">
+					<SearchResults trackList={spotifySongs} addTrack={addTrack} isSearchResults={true} />
+					<Playlist
+						trackList={chosenSongs}
+						setPlaylistName={setPlaylistName}
+						removeTrack={removeTrack}
+						isSearchResults={false}
+						saveToSpotify={saveToSpotify}
+						playlistName={playlistName}
+					/>
+				</main>
+			)}
 		</div>
 	);
 }
