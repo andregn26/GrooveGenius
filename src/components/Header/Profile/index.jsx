@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 
 const Profile = ({ userProfile }) => {
-	console.log("userProfile -->", userProfile);
+	// console.log("userProfile -->", userProfile);
 	const { display_name, email, images } = userProfile;
 	const smallImage = images[0].url;
 

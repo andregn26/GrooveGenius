@@ -1,4 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
+import toast from "react-hot-toast";
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const REDIRECT_URI = `http://localhost:5173/`;
@@ -67,10 +68,16 @@ const postCreatePlaylist = async (playlistName, list) => {
 			body: JSON.stringify({ name: playlistName }),
 		});
 		if (response.ok) {
+			console.log("response -->", response);
 			console.log("Playlist has been created");
 			const jsonResponse = await response.json();
 			PLAYLIST_ID = jsonResponse.id;
 			await postItemsToPlaylist(tracksURIs);
+			const notify = () => toast.success("Playlist created!");
+			notify();
+		} else {
+			const notify = () => toast.error("Something went wrong while creating the Playlist");
+			notify();
 		}
 	} catch (error) {
 		console.log("Error creating playlist:", error);
@@ -90,7 +97,12 @@ const postItemsToPlaylist = async (tracks) => {
 			body: JSON.stringify({ uris: tracks }),
 		});
 		if (response.ok) {
+			const notify = () => toast.success("Songs added to playlist!");
+			notify();
 			console.log("Songs added");
+		} else {
+			const notify = () => toast.error("Something went wrong while adding the songs");
+			notify();
 		}
 	} catch (error) {
 		console.log("Songs not added" + error);
@@ -107,13 +119,13 @@ const getSongs = async (query) => {
 	sessionStorage.removeItem("searchTerm");
 	return !data.tracks
 		? []
-		: data.tracks.items.map(({ name, id, album, artists, uri }) => ({
-				name,
-				id,
-				uri,
-				artist: artists[0].name,
-				album: album.name,
-				image: album.images[2].url,
+		: data.tracks.items.map(({ name, id, album, artists, uri, preview_url }) => ({
+				trackName: name,
+				trackId: id,
+				trackUri: uri,
+				trackArtist: artists[0].name,
+				trackAlbum: { albumName: name, albumImage: album.images[1].url },
+				preview_url,
 		  }));
 };
 

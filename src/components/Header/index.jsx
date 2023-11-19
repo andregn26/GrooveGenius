@@ -1,4 +1,4 @@
-import SearchBar from "../SearchBar";
+import SearchBar from "./SearchBar";
 import Instructions from "./Instructions";
 import Profile from "./Profile";
 
@@ -12,17 +12,17 @@ const Header = ({ loadSongs, isSpotifyArrayEmpty, userProfile }) => {
 						isUserprofileEmpty ? "justify-center" : "justify-between"
 					}`}>
 					<h1 className=" text-xl font-bold hidden xs:inline-block">
-						GENIUS<span className="text-accent">GROOVE</span>
+						GENIUS<span className="text-primary">GROOVE</span>
 					</h1>
 					<h1 className=" text-xl font-bold inline-block xs:hidden">
-						G<span className="text-accent">G</span>
+						G<span className="text-primary">G</span>
 					</h1>
 					{!isUserprofileEmpty && <Profile userProfile={userProfile} />}
 				</div>
 			</nav>
 			<div
 				className={`py-10 px-6 flex flex-col items-center justify-center ${
-					isSpotifyArrayEmpty ? "h-screen" : "mt-16"
+					isSpotifyArrayEmpty ? "h-screen" : "mt-24"
 				}`}>
 				<SearchBar loadSongs={loadSongs} isSpotifyArrayEmpty={isSpotifyArrayEmpty} />
 				<Instructions isSpotifyArrayEmpty={isSpotifyArrayEmpty} />

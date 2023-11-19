@@ -6,6 +6,7 @@ module.exports = {
 	content: ["./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		screens: {
+			xxs: "300px",
 			xs: "475px",
 			...defaultTheme.screens,
 		},
