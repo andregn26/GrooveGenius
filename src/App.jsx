@@ -21,8 +21,8 @@ function App() {
 		const loadUser = async () => {
 			const myUser = await getUserProfile();
 			setUser(myUser);
-			loadUser();
 		};
+		loadUser();
 	}, []);
 
 	const saveToSpotify = async () => {
