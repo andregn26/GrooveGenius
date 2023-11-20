@@ -15,13 +15,15 @@ function App() {
 
 	useEffect(() => {
 		getToken();
-		loadUser();
 	}, []);
 
-	const loadUser = async () => {
-		const myUser = await getUserProfile();
-		setUser(myUser);
-	};
+	useEffect(() => {
+		const loadUser = async () => {
+			const myUser = await getUserProfile();
+			setUser(myUser);
+			loadUser();
+		};
+	});
 
 	const saveToSpotify = async () => {
 		const uriList = chosenSongs.map((song) => song.trackUri);
