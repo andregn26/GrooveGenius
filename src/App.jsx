@@ -13,6 +13,11 @@ function App() {
 	const [chosenSongs, setChosenSongs] = useState([]);
 	const [user, setUser] = useState(null);
 
+	useEffect(() => {
+		getToken();
+		loadUser();
+	}, []);
+
 	const loadUser = async () => {
 		const myUser = await getUserProfile();
 		setUser(myUser);
@@ -33,7 +38,6 @@ function App() {
 
 	const loadSongs = async (searchTerm) => {
 		const newTracks = await getSongs(searchTerm);
-		loadUser();
 		setSpotifySongs(newTracks);
 	};
 
