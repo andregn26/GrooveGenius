@@ -13,17 +13,10 @@ function App() {
 	const [chosenSongs, setChosenSongs] = useState([]);
 	const [user, setUser] = useState(null);
 
-	// useEffect(() => {
-	// 	getToken();
-	// }, []);
-
-	useEffect(() => {
-		const loadUser = async () => {
-			const myUser = await getUserProfile();
-			setUser(myUser);
-		};
-		loadUser();
-	}, []);
+	const loadUser = async () => {
+		const myUser = await getUserProfile();
+		setUser(myUser);
+	};
 
 	const saveToSpotify = async () => {
 		const uriList = chosenSongs.map((song) => song.trackUri);
@@ -40,6 +33,7 @@ function App() {
 
 	const loadSongs = async (searchTerm) => {
 		const newTracks = await getSongs(searchTerm);
+		loadUser();
 		setSpotifySongs(newTracks);
 	};
 
