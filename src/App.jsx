@@ -23,7 +23,7 @@ function App() {
 			setUser(myUser);
 			loadUser();
 		};
-	});
+	}, []);
 
 	const saveToSpotify = async () => {
 		const uriList = chosenSongs.map((song) => song.trackUri);
