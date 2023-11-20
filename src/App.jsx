@@ -13,9 +13,9 @@ function App() {
 	const [chosenSongs, setChosenSongs] = useState([]);
 	const [user, setUser] = useState(null);
 
-	useEffect(() => {
-		getToken();
-	}, []);
+	// useEffect(() => {
+	// 	getToken();
+	// }, []);
 
 	useEffect(() => {
 		const loadUser = async () => {
