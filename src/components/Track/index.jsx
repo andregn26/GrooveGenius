@@ -39,9 +39,13 @@ const Track = ({ track, handleTrack, isSearchResults }) => {
 				</figure>
 				<div className=" flex w-full">
 					<div className="card-body p-4">
-						<p className="text-xs">{trackArtist}</p>
-						<p className="xs:hidden text-base">{shortTrackName(trackName, 20)}</p>
-						<p className="hidden xs:inline-block text-base">{shortTrackName(trackName, 30)}</p>
+						<p className="text-xs tracking-wider">{trackArtist}</p>
+						<p className="xs:hidden font-bold tracking-tight text-base">
+							{shortTrackName(trackName, 20)}
+						</p>
+						<p className="hidden font-bold tracking-tighter xs:inline-block text-base">
+							{shortTrackName(trackName, 30)}
+						</p>
 					</div>
 					<div className="flex h-full ">
 						<Button
