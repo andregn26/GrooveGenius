@@ -2,7 +2,7 @@
 import toast from "react-hot-toast";
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
-const REDIRECT_URI = `http://localhost:5173/` || "https://groove-genius.vercel.app/";
+const REDIRECT_URI = "https://groove-genius.vercel.app/" || `http://localhost:5173/`;
 const SCOPE = "playlist-modify-public playlist-modify-private user-read-private user-read-email";
 let TOKEN = null;
 let USER_ID = "";
