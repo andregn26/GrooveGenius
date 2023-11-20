@@ -9,8 +9,8 @@ const Profile = ({ userProfile }) => {
 		<>
 			<div className="flex gap-8">
 				<div className="hidden md:inline-block text-right">
-					<p className="text-sm mb-1">{display_name}</p>
-					<p className="text-xs">{email}</p>
+					<p className="text-sm mb-1 font-bold tracking-wide text-white ">{display_name}</p>
+					<p className="text-xs tracking-tight text-base-content">{email}</p>
 				</div>
 				<button className="avatar" onClick={() => document.getElementById("my_modal_2").showModal()}>
 					<div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">

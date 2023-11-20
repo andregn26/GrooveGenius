@@ -2,8 +2,6 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Header from "./components/Header";
-import SearchResults from "./components/SearchResults";
-import Playlist from "./components/Playlist";
 import Tracklist from "./components/Tracklist";
 import { getToken, getUserProfile, getSongs, postCreatePlaylist } from "./spotify";
 import "./App.css";
@@ -73,7 +71,7 @@ function App() {
 				<main className="grid sm:grid-cols-2 gap-12 mx-4 md:mx-16 max-w-5xl items-start mb-24">
 					<div className=" min-w-xs p-4 xs:p-6 bg-neutral/40 rounded-3xl">
 						<div className="h-16">
-							<p className="text-xs">Results Output</p>
+							<p className="text text-center font-bold">Search Results</p>
 						</div>
 						<Tracklist trackList={spotifySongs} handleTrack={addTrack} isSearchResults={true} />
 					</div>
@@ -89,7 +87,9 @@ function App() {
 						</div>
 						<div className="mb-8">
 							{chosenSongs.length === 0 && playlistName.length === 0 ? (
-								<p className="text-center">Add some songs to your new Playlist!</p>
+								<p className="text-center font-bold">
+									Add some songs to your new Playlist!
+								</p>
 							) : (
 								<Tracklist
 									trackList={chosenSongs}
@@ -103,7 +103,7 @@ function App() {
 							disabled={isArrayAndNameEmpty && "disabled"}
 							className="btn btn-primary btn-block"
 							onClick={saveToSpotify}>
-							save playlist
+							Save to Spotify
 						</button>
 					</div>
 					<Toaster
