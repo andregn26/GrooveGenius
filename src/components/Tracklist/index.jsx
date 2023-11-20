@@ -4,9 +4,17 @@ import Track from "../Track";
 
 const Tracklist = ({ trackList, handleTrack, isSearchResults }) => {
 	return (
-		<div className="border flex flex-col gap-4 px-4">
+		<div className="grid grid-cols-1 gap-4">
 			{trackList.map((track) => {
-				return <Track key={track.id} track={track} handleTrack={handleTrack} isSearchResults={isSearchResults} />;
+				// console.log("track", track);
+				return (
+					<Track
+						key={track.trackId}
+						track={track}
+						handleTrack={handleTrack}
+						isSearchResults={isSearchResults}
+					/>
+				);
 			})}
 		</div>
 	);

@@ -8,16 +8,17 @@ const Playlist = ({ trackList, removeTrack, isSearchResults, saveToSpotify, setP
 	};
 
 	return (
-		<div>
-			<input
+		<>
+			{/* <input
 				value={playlistName}
 				onChange={(e) => setPlaylistName(e.target.value)}
 				placeholder="Título da playlist"
 				type="text"
-			/>
+			/> */}
+
 			<Tracklist trackList={trackList} handleTrack={removeTrack} isSearchResults={isSearchResults} />
-			<button onClick={handleClick}>save playlist</button>
-		</div>
+			{/* <button onClick={handleClick}>save playlist</button> */}
+		</>
 	);
 };
 
