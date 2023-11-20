@@ -2,7 +2,7 @@
 
 Playlistify is a Single Page Web Application (SPA) that enables you to explore the Spotify library, create personalized playlists, and save them directly to your Spotify account. Whether you want to curate your favorite songs, discover new tracks, or share your musical tastes with the world, Playlistify has got you covered.
 
-![GeniusGroove](images/playlistify.gif)
+![GeniusGroove](public/gifDemo.gif)
 
 ## Technologies Used
 
