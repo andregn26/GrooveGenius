@@ -3,6 +3,7 @@ import Instructions from "./Instructions";
 import Profile from "./Profile";
 
 const Header = ({ loadSongs, isSpotifyArrayEmpty, userProfile }) => {
+	console.log("userProfile", userProfile);
 	const isUserprofileEmpty = userProfile === null;
 	return (
 		<header className={`w-full`}>

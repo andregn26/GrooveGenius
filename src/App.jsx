@@ -12,6 +12,7 @@ function App() {
 	const [playlistName, setPlaylistName] = useState("");
 	const [chosenSongs, setChosenSongs] = useState([]);
 	const [user, setUser] = useState(null);
+	console.log(user);
 
 	useEffect(() => {
 		getToken();

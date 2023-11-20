@@ -3,6 +3,7 @@ import Modal from "./Modal";
 const Profile = ({ userProfile }) => {
 	// console.log("userProfile -->", userProfile);
 	const { display_name, email, images } = userProfile;
+
 	const smallImage = images[0].url;
 
 	return (
@@ -14,7 +15,7 @@ const Profile = ({ userProfile }) => {
 				</div>
 				<button className="avatar" onClick={() => document.getElementById("my_modal_2").showModal()}>
 					<div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-						<img src={smallImage} />
+						{images.length === 0 ? <></> : <img src={smallImage} />}
 					</div>
 				</button>
 			</div>

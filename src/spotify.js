@@ -24,7 +24,7 @@ const getToken = async () => {
 		window.history.pushState("Access Token", null, "/");
 		return TOKEN;
 	} else {
-		const accessUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${CLIENT_ID}&scope=${encodeURIComponent(
+		const accessUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=${encodeURIComponent(
 			SCOPE
 		)}&redirect_uri=${REDIRECT_URI}`;
 		window.location = accessUrl;
