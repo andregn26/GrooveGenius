@@ -1,6 +1,6 @@
 # GeniusGroove
 
-Playlistify is a Single Page Web Application (SPA) that enables you to explore the Spotify library, create personalized playlists, and save them directly to your Spotify account. Whether you want to curate your favorite songs, discover new tracks, or share your musical tastes with the world, Playlistify has got you covered.
+GeniusGroove is a Single Page Web Application (SPA) that enables you to explore the Spotify library, create personalized playlists, and save them directly to your Spotify account. Whether you want to curate your favorite songs, discover new tracks, or share your musical tastes with the world, GeniusGroove has got you covered.
 
 ![GeniusGroove](public/gifDemo.gif)
 
@@ -10,12 +10,14 @@ Playlistify is a Single Page Web Application (SPA) that enables you to explore t
 - **JavaScript**: The backbone of web development, used for adding interactivity and functionality.
 - **HTML**: The standard markup language for creating web pages.
 - **Tailwind CSS**: A utility-first CSS framework for rapid and responsive web development.
+- **Daisy UI**: Component library for Tailwind CSS.
+- **React Hot Toast**: Package for creating notification components.
 - **Git and GitHub**: Version control and collaborative platform for code management.
 - **Spotify API**: Integrating Spotify's API to access the vast music library and manage playlists.
 
 ## Features
 
-Playlistify offers the following features:
+GeniusGroove offers the following features:
 
 - **Spotify Integration**: Seamlessly connect to your Spotify account to access your playlists, discover new music, and manage your tracks.
 - **Search and Explore**: Search for songs, albums, and artists within Spotify's extensive catalog.
@@ -25,7 +27,7 @@ Playlistify offers the following features:
 
 ## Future Improvements
 
-Playlistify is an evolving project, and here are some future improvements in the pipeline:
+GeniusGroove is an evolving project, and here are some future improvements in the pipeline:
 
 ### Immediate Features to Work On
 
@@ -48,7 +50,3 @@ Playlistify is an evolving project, and here are some future improvements in the
 ### Necessary Improvements:
 
 - **Enhanced Authorization**: Implement more secure forms of authorization, such as a login portal or authorization code with PKCE flow. [Learn more](https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow)
-
-- **Performance Optimization**: Optimize performance by reducing the number of renders through the use of the `useCallback` React hook.
-
-- **Hosting Solution**: Explore hosting options to make Playlistify accessible to a broader audience.
