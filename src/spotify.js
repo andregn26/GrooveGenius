@@ -2,9 +2,7 @@
 import toast from "react-hot-toast";
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
-const REDIRECT_URI = "https://groove-genius.vercel.app/";
-//  `http://localhost:5173/`
-// "https://groove-genius.vercel.app/"
+const REDIRECT_URI = import.meta.env.VITE_NODE_ENV === "development" ? "http://localhost:5173/" : "https://groove-genius.vercel.app/";
 const SCOPE = "playlist-modify-public playlist-modify-private user-read-private user-read-email";
 let TOKEN = null;
 let USER_ID = "";
@@ -26,7 +24,7 @@ const getToken = async () => {
 		window.history.pushState("Access Token", null, "/");
 		return TOKEN;
 	} else {
-		const accessUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=${encodeURIComponent(
+		const accessUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${CLIENT_ID}&scope=${encodeURIComponent(
 			SCOPE
 		)}&redirect_uri=${REDIRECT_URI}`;
 		window.location = accessUrl;
